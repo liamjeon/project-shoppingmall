@@ -53,5 +53,6 @@ app.delete('/delete', (req, res)=>{
     req.body._id = parseInt(req.body._id);
     db.collection('post').deleteOne({_id: req.body._id}, (err, result)=>{
         console.log('삭제완료');
+        res.status(200).send('삭제를 완료했습니다.');
     })
 })

@@ -66,13 +66,16 @@
 
     <script>
       $(".delete").click((e) => {
-        let postId = e.target.dataset.id;
+        let postId = e.target.dataset.id; //지금 클릭한것
+        let clicked = $(this); //지금 이벤트 동작하는 곳
 
         $.ajax({
           method: "DELETE",
           url: "/delete",
           data: {_id: postId},
-        }).done((result) => {});
+        }).done((result) => {
+          location.reload();
+        }).fail(()=>{});
       });
     </script>
   </body>
