@@ -38,7 +38,7 @@ app.post("/add", function (req, res) {
   db.collection('counter').findOne({name: '게시물개수'}, (err, result)=>{
       const 총게시물개수 = result.totalPost;
 
-      db.collection("post").insertOne({ _id:총게시물개수, titie:req.body.title, date:req.body.date}, (err, result)=>{
+      db.collection("post").insertOne({ _id:총게시물개수, title:req.body.title, date:req.body.date}, (err, result)=>{
         console.log("저장완료");
         db.collection('counter').updateOne({name: '게시물개수'}, { $inc : {totalPost:1}}, (err, result)=>{ //operator 사용
             if(err) return console.error(err);
@@ -46,3 +46,12 @@ app.post("/add", function (req, res) {
       });
   });
 });
+
+app.delete('/delete', (req, res)=>{
+    console.log(req.body._id);
+
+    req.body._id = parseInt(req.body._id);
+    db.collection('post').deleteOne({_id: req.body._id}, (err, result)=>{
+        console.log('삭제완료');
+    })
+})
